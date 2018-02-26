@@ -1,0 +1,127 @@
+#!/bin/bash
+
+#$1: The first parameter passed to the application (used for help, git commands and other stuff)
+#$2: Used for: remote repository address (clone)
+
+
+help_message(){ #Function that displays help message
+
+echo "This is the help page. Below you can see the list of parameters to use."
+echo "Commands:"
+echo "init:					Initialize a repository"
+echo "clone <remote_address>:			Clone an existing remote repository"
+echo "add <file_name>:			Track chosen file/s by adding them into the index"
+echo "commit <message>:			Commit current changes. Commit message must be specified"
+echo "status:					Show the status of the current working three"
+echo "log:					Show the commit log"
+}
+
+
+if [ "$#" = 0 ] # If there are no arguments
+then
+echo "Welcome to the Genome Git! Run genomegit -help for usage information." # Welcome message
+fi
+
+if [ "$1" = "-help" ] # If the 1st argument is help 
+then
+help_message #Executes the function that displays the help message
+
+elif [ "$1" = "init" ] # Initializing the repository
+then
+mkdir .gnmgit
+cd .gnmgit
+git init
+
+elif [ "$1" = "status" ] # Repository status
+then
+git status
+
+elif [ "$1" = "clone" ] # Initializing the repository
+then
+
+	if [ "$2" ]
+	then
+	git clone $2
+
+	else
+	echo "Please provide the remote repository adress"
+	fi
+
+elif [ "$1" = "add" ] # Initializing the repository
+then
+
+	if [ "$2" ]
+	then
+	git add $2
+	
+	else
+	echo "Please specify which file to add"
+	fi
+
+elif [ "$1" = "remote" ] # Initializing the repository
+then
+
+	if [ "$2" = "add" ] 
+	then
+
+		if [ "$3" ] 
+		then
+		git remote add $3
+	
+		else
+		echo "Please specify the remote address"
+		fi
+
+	elif [ ! "$2" ] 
+	then
+	git remote
+	
+	else
+	echo "Unknown git remote command"
+	fi
+
+elif [ "$1" = "commit" ] # Initializing the repository
+then
+
+	if [ "$2" ]
+	then
+	git commit $2
+	
+
+	else
+	echo "The commit message must be specified"
+	fi
+
+elif [ "$1" = "status" ] # Show the status of the current working three
+then
+git status
+
+elif [ "$1" = "log" ] # Show the commit log
+then
+git log
+
+elif [ "$1" = "push" ] # Initializing the repository
+then
+
+	if [ "$2" ]
+	then
+	git push $2
+	
+
+	else
+	echo "The remote repository must be specified"
+	fi
+
+
+else
+
+	if [ ! "$#" = 0 ]
+	then
+	echo "Unrecognized command"
+	fi
+
+fi
+
+
+
+
