@@ -1,0 +1,184 @@
+#!/bin/bash
+
+#PATH=$PATH:/home/kuba/app
+
+#$1: The first parameter passed to the application (used for help, git commands and other stuff)
+#$2: Used for: remote repository address (clone) etc.
+#$3: For specifying which file to add and to check for diff
+
+help_message(){ #Function that displays help message
+
+echo "This is the help page. Below you can see the list of parameters to use."
+echo "Commands:"
+echo "init:					Initialize a repository"
+echo "clone <remote_address>:			Clone an existing remote repository"
+echo "add <file_name>:			Track chosen file/s by adding them into the index"
+echo "commit <message>:			Commit current changes. Commit message must be specified"
+echo "status:					Show the status of the current working three"
+echo "log:					Show the commit log"
+}
+
+
+if [ "$#" = 0 ] # If there are no arguments ($# - numer of passed arguments)
+then
+echo "Welcome to the Genome Git! Run genomegit -help for usage information." # Welcome message
+fi
+
+if [ "$1" = "-help" ] # If the 1st argument is help 
+then
+help_message #Executes the function that displays the help message
+
+elif [ "$1" = "init" ] # Initializing the repository
+then
+
+	if [ -d ".gnmgit" ] # Does repository exist already?
+	then
+	echo "The repository cannot be initialized, as anoter one exists already"
+
+	else
+	mkdir .gnmgit
+	cd .gnmgit
+	git init
+	fi
+
+elif [ "$1" = "status" ] && [ -d ".gnmgit" ] # Repository status
+then
+cd .gnmgit
+git status
+
+elif [ "$1" = "clone" ] && [ -d ".gnmgit" ] # Cloning the repository
+then
+cd .gnmgit
+
+	if [ "$2" ] # Checking if the second argument - remote address is given
+	then
+	git clone $2
+
+	else
+	echo "Please provide the remote repository adress"
+	fi
+
+### HERE WE SHOULD CHECK IF ALL OF THE FILES IN THE REP HAVE A PROPER EXTENSION
+elif [ "$1" = "add" ] && [ -d ".gnmgit" ] # Adding files to the current commit
+then
+cd .gnmgit
+
+	if [ "$2" ]
+	then
+	git add $2
+	
+	else
+	echo "Please specify which file to add"
+	fi
+
+elif [ "$1" = "remote" ] && [ -d ".gnmgit" ] # Remote repository address operations
+then
+cd .gnmgit
+
+	if [ "$2" = "add" ] # Setting the address for the remote repository
+	then
+
+		if [ "$3" ] 
+		then
+		git remote add $3
+	
+		else
+		echo "Please specify the remote address"
+		fi
+
+	elif [ "$2" = "set-head" ] # Selecting remote
+	then
+
+		if [ "$3" ] 
+		then
+		git remote set-head $3
+	
+		else
+		echo "Please specify the remote to use"
+		fi
+
+	elif [ ! "$2" ] # Showing the list of remotes
+	then
+	git remote
+	
+	else
+	echo "Unknown git remote command"
+	fi
+
+elif [ "$1" = "commit" ]  && [ -d ".gnmgit" ] # Initializing the repository
+then
+cd .gnmgit
+
+	if [ "$2" ]
+	then
+	git commit -m "$2"
+	
+	else
+	echo "The commit message must be specified"
+	fi
+
+elif [ "$1" = "status" ]  && [ -d ".gnmgit" ] # Show the status of the current working three
+then
+cd .gnmgit
+git status
+
+elif [ "$1" = "log" ]  && [ -d ".gnmgit" ] # Show the commit log
+then
+cd .gnmgit
+git log
+
+elif [ "$1" = "push" ]  && [ -d ".gnmgit" ] # Initializing the repository
+then
+cd .gnmgit
+
+	if [ "$2" ]
+	then
+	git push $2
+	
+	else
+	echo "The remote repository must be specified"
+	fi
+
+elif [ "$1" = "pull" ]  && [ -d ".gnmgit" ] # Git pull
+then
+cd .gnmgit
+git pull
+
+elif [ "$1" = "diff" ] && [ -d ".gnmgit" ] # Doesnt work well yet
+then
+cd .gnmgit
+
+	if [ "$#" = 1 ] # Comparing the current files with the last commit
+	then
+
+	git diff 
+
+	elif [ "$#" = 2 ] # Comparing the specified file ($2) with the last commit
+	then
+
+	git diff $2
+
+	elif [ "$#" = 3 ] # Comparing the files between 2 commits ($2 and $3 are commit hashes)
+	then
+
+	git diff $2 $3
+	
+	else
+	echo "Unknown git diff command"
+	fi
+
+else
+
+	if [ ! "$#" = 0 ]
+	then
+	echo "Unrecognized command"
+
+	else
+	echo "Other error"
+	fi
+
+fi
+
+
+
+
