@@ -1,0 +1,117 @@
+#!/bin/bash
+
+# List of dependecies: git
+
+#PATH=$PATH:/home/kuba/app
+# Remote: genomegit remote add origin genomegit@138.250.31.4:Desktop/GenomeGit
+
+#$1: The first parameter passed to the application (used for help, git commands and other stuff)
+#$2: Used for: remote repository address (clone) etc.
+#$3: For specifying which file to add and to check for diff
+
+path=$(pwd)
+
+help_message(){ #Function that displays help message
+
+
+
+echo "This is the help page. GenomeGit utilizes git and it's commands, as well as custom commands."
+echo "These include:"
+echo "parse:					Parses chosen FASTA file into the reopsitory"
+echo "reconstruct:				Reconstructs the current version of the file from the repository"
+echo ""
+echo "Below you can see the list of the most common git commands:"
+echo "init:					Initialize a repository"
+echo "clone <remote_address>:			Clone an existing remote repository"
+echo "add <file_name>:			Track chosen file/s by adding them into the index"
+echo "commit -m <message>:			Commit current changes. Commit message must be specified"
+echo "status:					Show the status of the current working three"
+echo "log:					Show the commit log"
+echo ""
+echo "To execute one of the commands type: genomegit <command>."
+}
+
+
+if [ "$#" = 0 ] # If there are no arguments ($# - numer of passed arguments)
+then
+echo "Welcome to GenomeGit! Run 'genomegit help' for usage information." # Welcome message
+
+
+elif [ "$1" = "help" ] # If the 1st argument is help 
+then
+help_message #Executes the function that displays the help message
+
+
+elif [ "$1" = "clone" ]  # Cloning the repository
+then
+
+	if [ "$2" ] && [ "$#" = 2 ] # Checking if the second argument - remote address is given
+	then
+
+	git clone $2 ${path}/.gnmgit
+
+	else
+	cd .gnmgit
+	git $@
+	fi
+
+
+
+elif [ "$1" = "init" ] # Initializing the repository
+then
+
+	if [ -d ".gnmgit" ] # Does repository exist already?
+	then
+	echo "The repository cannot be initialized, as anoter one exists already"
+
+	else
+	mkdir .gnmgit
+	cd .gnmgit
+	git init
+	fi
+
+elif [ "$1" = "parse" ] && [ $# = 2 ] # Initializing the repository
+then
+
+cd .gnmgit
+bash parse_file.bash "${path}/$2" # Maybe change this to full path
+
+
+elif [ "$1" = "reconstruct" ] # Initializing the repository
+then
+
+cd .gnmgit
+bash reconstruct.bash $(pwd)/Genome $2
+
+mv reconstructed.fa ../reconstructed.fa
+
+
+elif [ "$1" = "add" ] && [ -d ".gnmgit" ] # Adding files to the current commit
+then
+cd .gnmgit
+
+	if [ "$2" ]
+	then
+	git $@
+	
+	else
+	echo "Please specify which file to add"
+	fi
+
+
+else
+
+	if [ -d ".gnmgit" ]
+	then
+	cd .gnmgit
+	git $@
+
+	else
+	echo "GenomeGit repository not found. Please create one boefore running any other commands."
+	fi
+
+fi
+
+
+
+
