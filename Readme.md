@@ -46,25 +46,29 @@ Test files called *fruit_fly_v1* and *fruit_fly_v2* containing the assembly data
 
 #### Primary upload
 1. 	Initialize the repository ```genomegit init``` in the chosen directory
-1.a. 	You can clone an existing repository instead ```genomegit clone genomegit@138.250.31.4:GenomeGit```
+
+Note: 	You can clone an existing repository instead ```genomegit clone genomegit@138.250.31.4:GenomeGit```
 2. 	Move the FASTA files into the directory with GenomeGit repository and parse *fruit_fly_v1* ```genomegit parse fruit_fly_v1.fa```
 3. 	Record the changes by executing ```genomegit add .``` and ```genomegit commit -m "Version_1"```
 
 #### Remote access
 4. 	Add the remote repository address ```genomegit remote add scarface genomegit@138.250.31.4:GenomeGit```
-4.a. 	If the repository is not empty, you should pull the data ```genomegit pull scarface <branch>```. <branch> will usualy be called master.
+
+Note: 	If the repository is not empty, you should pull the data ```genomegit pull scarface <branch>```. <branch> will usualy be called master.
 5. 	Push your current data ```genomegit push scarface master```
 
 #### New version upload
 7. 	Parse *fruit_fly_v2* ```genomegit parse fruit_fly_v2.fa```
 8. 	Record the changes by executing ```genomegit add .``` and ```genomegit commit -m "Version_2"```
-8.a.	In older verions of git you may need to include ```-A``` parameter during adding to include the removal of certain file parts. A proprer message will appear if that is the case.
+
+Note:	In older verions of git you may need to include ```-A``` parameter during adding to include the removal of certain file parts. A proprer message will appear if that is the case.
 9. 	Push your current data ```genomegit push scarface master```
 
 ### Recoverig version 1
 10. 	See the version log ```genomegit log```
 11. 	Check out version one ```genomegit checkout <V1_commit_hash>```
-11.a. 	In older versions of git, you may need to check out the genome folder ```genomegit checkout Genome```
+
+Note: 	In older versions of git, you may need to check out the genome folder ```genomegit checkout Genome```
 13. 	Reconstruct the file ```genomegit reconstruct 70```
 14.	Make sure to check out to your main branch if you wish to upload the files further ```genomegit checkout <branch_name>```. The default branch should be called 'master'.
 
