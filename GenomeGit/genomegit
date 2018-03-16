@@ -2,8 +2,8 @@
 
 # List of dependecies: git
 
-#PATH=$PATH:/home/kuba/app
-# Remote: genomegit remote add origin genomegit@138.250.31.4:Desktop/GenomeGit
+#PATH=$PATH:/home/kuba/GenomeGit/GenomeGit
+# Remote: genomegit remote add origin genomegit@138.250.31.4:GenomeGit
 
 #$1: The first parameter passed to the application (used for help, git commands and other stuff)
 #$2: Used for: remote repository address (clone) etc.
