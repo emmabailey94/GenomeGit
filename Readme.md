@@ -25,7 +25,8 @@ The repository can be initialized by typing ```genomegit init```. In your curren
 
 ### Parsing the files
 You should place the file that you wish to parse into the folder with GenomeGit repository . Then, type ```genomegit parse <filename>```. A *Genome* folder will be created in the repository (*.gnmgit* folder) with the processed file. 
-Note: Currently only 1 genome can be stored per branch. Existing *Genome* folder will be removed*.
+
+Note: Currently only 1 genome can be stored per branch. Existing *Genome* folder will be removed.
 
 ### Recording changes made to the repository
 After uploading the genome you should add it to the repository: ```genomegit add <itemname>```. If you wish to add everything, you can type ```genomegit add .```.
