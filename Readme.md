@@ -69,7 +69,7 @@ Note:	In older verions of git you may need to include ```-A``` parameter during 
 
 9. 	Push your current data ```genomegit push scarface master```
 
-### Recoverig version 1
+#### Recoverig version 1
 10. 	See the version log ```genomegit log```
 
 11. 	Check out version one ```genomegit checkout <V1_commit_hash>```
