@@ -35,7 +35,7 @@ Then, you can commit the changes: ```genomegit commit -m "commit_message"```.
 In order to acces a remote repository, you first need to add a remote repository address. You can do that by typing ```genomegit remote add <remote_name> <url>```. To be up to date with the repository, you need to fetch the data from it and integrate: ```genomegit pull <remote_name> <branch_name>```. Then, anfter making changes to the repository, you can push the changes: ```genomegit push <remote_name>```.
 
 ### Version log, checking out the desired version and recreating the FASTA file
-In order to switch to a chosen version of genome, you will need to find out the hash of the commit corresponding to the version of your choice. To review the list of versions of the genome you can type ```genomegit log```. Then you can switch by typing ```genomegit checkout <commit_hash>```. Finally, to recreate the file from the repository, type ```genomegit reconstruct <line_length>```. <line_length> specifies the noumber of nucleotides per line in the output file. Make sure to check out to your main branch if you wish to upload the files further ```genomegit checkout <branch_name>```.
+In order to switch to a chosen version of genome, you will need to find out the hash of the commit corresponding to the version of your choice. To review the list of versions of the genome you can type ```genomegit log```. Then you can switch by typing ```genomegit checkout <commit_hash>```. Finally, to recreate the file from the repository, type ```genomegit reconstruct <line_length>```. ```<line_length>``` specifies the noumber of nucleotides per line in the output file. Make sure to check out to your main branch if you wish to upload the files further ```genomegit checkout <branch_name>```.
 
 ## Sample data and testing
 
@@ -56,7 +56,7 @@ Note: You can clone an existing repository instead ```genomegit clone genomegit@
 #### Remote access
 4. Add the remote repository address ```genomegit remote add scarface genomegit@138.250.31.4:GenomeGit```
 
-Note: If the repository is not empty, you should pull the data ```genomegit pull scarface <branch>```. <branch> will usualy be called master.
+Note: If the repository is not empty, you should pull the data ```genomegit pull scarface <branch>```. ```<branch>``` will usualy be called master.
 
 5. Push your current data ```genomegit push scarface master```
 
