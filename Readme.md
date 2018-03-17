@@ -26,7 +26,7 @@ To get the list of the most common commands you can type ```genomegit help```.
 The repository can be initialized by typing ```genomegit init```, which will create a *.gnmgit* directory. This directory will contain all the genomic data stored in the repository, including the *.git* repository itself. Additionally, it is possible to clone an existing repository using ```genomegit clone <url>```, which will create a *.gnmgit* with the cloned contents inside.
 
 ### 2. Parsing genome assembly files
-The genome assembly of interest needs to be provided in form of a FASTA file, located in the same directory where the *.gnmgit* repository has been initialized. This file can then be processed by typing `genomegit parse <filename>```, which will result in the creation of a *Genome* folder storing all the assembly information in form of git-compatible objects.
+The genome assembly of interest needs to be provided in form of a FASTA file, located in the same directory where the *.gnmgit* repository has been initialized. This file can then be processed by typing ```genomegit parse <filename>```, which will result in the creation of a *Genome* folder storing all the assembly information in form of git-compatible objects.
 
 Note: Currently only 1 genome can be stored per branch. Any already existing *Genome* folder will be removed when parsing a new genome assembly file.
 
