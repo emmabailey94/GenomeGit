@@ -23,7 +23,7 @@ To get the list of the most common commands you can type ```genomegit help```.
 ## Typical usage
 
 ### 1. Initializing the repository
-The repository can be initialized by typing ```genomegit init```, which will create a *.gnmgit* directory. This directory will contain all the genomic data stored in the repository, including the *.git* repository itself. Additionally, is possible to clone an existing repository using ```genomegit clone <url>```, which will create a *.gnmgit* with the cloned contents inside.
+The repository can be initialized by typing ```genomegit init```, which will create a *.gnmgit* directory. This directory will contain all the genomic data stored in the repository, including the *.git* repository itself. Additionally, it is possible to clone an existing repository using ```genomegit clone <url>```, which will create a *.gnmgit* with the cloned contents inside.
 
 ### 2. Parsing genome assembly files
 The genome assembly of interest needs to be provided in form of a FASTA file, located in the same directory where the *.gnmgit* repository has been initialized. This file can then be processed by typing `genomegit parse <filename>```, which will result in the creation of a *Genome* folder storing all the assembly information in form of git-compatible objects.
@@ -43,7 +43,7 @@ User can switch to any of the stored assembly versions at any moment by typing `
 ## Sample data and testing
 
 ### Sample data
-Two sample assembly files containing *Drosophila Melanogaster* genome have been supplied in form of files *fruit_fly_v1.fa* and *fruit_fly_v2.fa*. These assemblies are publically available in the [NCBI database](https://www.ncbi.nlm.nih.gov/genome?term=vih&cmd=DetailsSearch), and correspond with versions *PUT HERE THE REAL VERSION NUMBERS.
+Two sample assembly files containing *Drosophila Melanogaster* genome have been supplied in form of files *fruit_fly_v1.fa* and *fruit_fly_v2.fa*. These assemblies are publically available in the [NCBI database](https://www.ncbi.nlm.nih.gov/genome?term=vih&cmd=DetailsSearch), and correspond with versions ASM231075v1 (v1) and ASM231077v1 (v2).
 
 ### Sample testing protocol
 
