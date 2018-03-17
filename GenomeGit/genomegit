@@ -2,112 +2,138 @@
 
 # List of dependecies: git
 
-#PATH=$PATH:/home/kuba/GenomeGit/GenomeGit
 # Remote: genomegit remote add origin genomegit@138.250.31.4:GenomeGit
 
 #$1: The first parameter passed to the application (used for help, git commands and other stuff)
 #$2: Used for: remote repository address (clone) etc.
 #$3: For specifying which file to add and to check for diff
 
+#Save the current working directory
 path=$(pwd)
 
-help_message(){ #Function that displays help message
+#Function that displays help message
+help_message(){
 
+	echo "Welcome to GenomeGit's help page. GenomeGit utilizes git and its commands, as well as the following custom commands:"
+	echo ""
+	echo "parse					Parses chosen FASTA file into the reopsitory"
+	echo "reconstruct				Reconstructs the current version of the file from the repository"
+	echo ""
+	echo "Below you can see the list of the most common git commands that can be passed to GenomeGit:"
+	echo ""
+	echo "init					Initialize a repository"
+	echo "clone <remote_address>			Clone an existing remote repository"
+	echo "add <file_name>				Track chosen file/s by adding them into the index"
+	echo "commit -m <message>			Commit current changes. Commit message must be specified"
+	echo "status					Show the status of the current working three"
+	echo "log					Show the commit log"
+	echo ""
+	echo "To execute any of the commands type: genomegit <command>."
 
-
-echo "This is the help page. GenomeGit utilizes git and it's commands, as well as custom commands."
-echo "These include:"
-echo "parse:					Parses chosen FASTA file into the reopsitory"
-echo "reconstruct:				Reconstructs the current version of the file from the repository"
-echo ""
-echo "Below you can see the list of the most common git commands:"
-echo "init:					Initialize a repository"
-echo "clone <remote_address>:			Clone an existing remote repository"
-echo "add <file_name>:			Track chosen file/s by adding them into the index"
-echo "commit -m <message>:			Commit current changes. Commit message must be specified"
-echo "status:					Show the status of the current working three"
-echo "log:					Show the commit log"
-echo ""
-echo "To execute one of the commands type: genomegit <command>."
 }
 
+# If there are no arguments ($# - number of passed arguments)
+if [ "$#" = 0 ]; then
+	# Welcome message
+	echo "Welcome to GenomeGit! Use 'genomegit help' for usage information."
 
-if [ "$#" = 0 ] # If there are no arguments ($# - numer of passed arguments)
-then
-echo "Welcome to GenomeGit! Run 'genomegit help' for usage information." # Welcome message
+# If the 1st argument is help
+elif [ "$1" = "help" ]; then
+	#Executes the function that displays the help message
+	help_message
 
-
-elif [ "$1" = "help" ] # If the 1st argument is help 
-then
-help_message #Executes the function that displays the help message
-
-
-elif [ "$1" = "clone" ]  # Cloning the repository
-then
-
-	if [ "$2" ] && [ "$#" = 2 ] # Checking if the second argument - remote address is given
-	then
-
-	git clone $2 ${path}/.gnmgit
-
+#Cloning the repositry
+elif [ "$1" = "clone" ]; then
+	#Checking for a second argument -remote address is given
+	if [ "$2" ] && [ "$#" = 2 ]; then
+		git clone $2 ${path}/.gnmgit
 	else
-	cd .gnmgit
-	git $@
+		echo "Please specify a remote address to clone"
 	fi
 
+# Initializing the repository
+elif [ "$1" = "init" ]; then
 
-
-elif [ "$1" = "init" ] # Initializing the repository
-then
-
-	if [ -d ".gnmgit" ] # Does repository exist already?
-	then
-	echo "The repository cannot be initialized, as anoter one exists already"
-
+	# Does repository exist already?
+	if [ -d ".gnmgit" ]; then
+		echo "The repository cannot be initialized, as anoter one exists already"
 	else
-	mkdir .gnmgit
-	cd .gnmgit
-	git init
+		mkdir .gnmgit
+		cd .gnmgit
+		git init
 	fi
 
-elif [ "$1" = "parse" ] && [ $# = 2 ] # Initializing the repository
-then
-
-cd .gnmgit
-bash parse_file.bash "${path}/$2" # Maybe change this to full path
-
-
-elif [ "$1" = "reconstruct" ] # Initializing the repository
-then
-
-cd .gnmgit
-bash reconstruct.bash $(pwd)/Genome $2
-
-mv reconstructed.fa ../reconstructed.fa
-
-
-elif [ "$1" = "add" ] && [ -d ".gnmgit" ] # Adding files to the current commit
-then
-cd .gnmgit
-
-	if [ "$2" ]
-	then
-	git $@
-	
+#Parsing a file
+elif [ "$1" = "parse" ]; then
+	#Check if a .gnmgit repo is already created
+	if [ -d ".gnmgit" ]; then
+		cd .gnmgit
+		#Check if a second argument is given
+		if [ $# = 2 ]; then
+			#Check if the second argument corresponds with a relative file path
+			if [ -e ${path}/$2 ]; then
+				bash parse_file.bash "${path}/$2"
+			#Check if the second argument corresponds with a full file path
+			elif [ -e $2 ]; then
+				bash parse_file.bash "$2"
+			#Otherwise is not a file
+			else
+				echo "$2 file was not found. Please make sure to provide a valid input"
+			fi
+		else
+			echo "An input file to parse must be specified"
+		fi
 	else
-	echo "Please specify which file to add"
+		echo "No gnmgit repository detected. Use genomegit init to initiate one"
 	fi
 
+# Reconstruct the file
+elif [ "$1" = "reconstruct" ]; then
+	#Check if a .gnmgit repo exists
+	if [ -d ".gnmgit" ]; then
+		cd .gnmgit
+		#Check if a genome dataset exists
+		if [ -d "Genome" ]; then
+			bash reconstruct.bash $(pwd)/Genome $2
+			#Only if the program created a reconstructed file (it is possible the user provided wrong input and no file is created)
+			if [ -e reconstructed.fa ]; then
+				mv reconstructed.fa ../reconstructed.fa
+			fi
+		else
+			echo "No genomic data to be reconstructed was detected. Please parse a file before trying to recreate it."
+		fi
+	else
+		echo "No gnmgit repository detected. Use genomegit init to initiate one"
+	fi
 
+#Adding files to the current commit
+elif [ "$1" = "add" ]; then
+	#Check if .gnmgit repo exists
+	if [ -d ".gnmgit" ]; then
+		#Enter the .gnmgit directory
+		cd .gnmgit
+		if [ "$2" = "Genome" ]; then
+			#Check if Genome folder exists
+			if [ -d "Genome" ]; then
+				git $@
+			else
+				echo "No Genome dataset detected. Please parse a file first."
+			fi
+		else
+			echo "Please specify which dataset to add (Genome, Variant, Annotation). Note: currently only Genome is supported"
+		fi
+	else
+		echo "No gnmgit repository detected. Use genomegit init to initiate one"
+	fi
+
+#If the first argument does not correspond with any of the following, let git handle it
 else
-
-	if [ -d ".gnmgit" ]
-	then
-	cd .gnmgit
-	git $@
-
+	#Check if .gnmgit repo exists
+	if [ -d ".gnmgit" ]; then
+		cd .gnmgit
+		git $@
 	else
-	echo "GenomeGit repository not found. Please create one boefore running any other commands."
+		echo "GenomeGit repository not found. Please create one before running any other commands."
 	fi
 
 fi

@@ -29,15 +29,25 @@ one_line=False
 #If the number of arguments is 0, the default line size is 60
 if(len(sys.argv)==1):
 	line_size=60
+	#Inform the user
+	print("Now begining reconstruction of the genomic data. Defaulting to 60 nucleotides per line.")
+
 #If the user introduces a dot for the first parameter, the line size will be the total length of the sequence
 elif(str(sys.argv[1])=="."):
 	one_line=True
+	#Inform the user
+	print("Now begining reconstruction of the genomic data. Reconstructed fasta file will contain all the nucletoides of each sequence fitted into one line")
+
 #Only if the number specified by the user is an actual number, use it as the line size
 elif (sys.argv[1].isdigit()):
-	line_size=int(sys.argv[1])
+	if(int(sys.argv[1])>0):
+		line_size=int(sys.argv[1])
+	#Inform the user
+	print("Now begining reconstruction of the genomic data. Reconstructed fasta file will contain "+str(line_size)+" nucleotides per line.")
+
 #Otherwise the input was not valid
 else:
-	print("Please select a valid numeric parameter for the line size of the reconstructed FASTA file. Default value is 60.")
+	print("Please select a valid positive number as the line size of the reconstructed FASTA file. Default value is 60.")
 	sys.exit()
 
 #Open a reconstruct file which will be the reconstructed fasta
