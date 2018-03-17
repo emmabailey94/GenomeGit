@@ -1,12 +1,14 @@
 # GenomeGit
 
-GenomeGit is a distributed version control system for genome assembly data. It uses the git program to create and manage the repository. Currently it is available for the Unix systems.
+GenomeGit is a distributed version control system based on the creation of git repositories for the storage of genomic data. Currently compatible with Unix systems.
 
 ### Prerequisites
 
-In order to run the program you will need the following programs: Java, python, git.
+The application requires installation of the following dependencies: 
+* Python v 2.7+
+* [Git](https://git-scm.com/downloads)
 
-### Installing
+### Installation
 
 To run the program, download the *GenomeGit* folder. Then, append to the PATH variable the directory to that folder```PATH=$PATH:ditectory```. You may need to make the main script executable: ```chmod u+x <path_to_GenomeGit/genomegit>```
 
@@ -14,34 +16,34 @@ To run the program, download the *GenomeGit* folder. Then, append to the PATH va
 ## Running GenomeGit
 
 To display the GenomeGit welcome message type ```genomegit```.
-GenomeGit adapts regular git commands that can be run by typing ```genomegit <git_command>```. See git documentation for more information on how to use git: https://git-scm.com/doc.
-Additional commands have been created to parse and reconstruct the files.
+GenomeGit adapts regular git commands that can be run by typing ```genomegit <git_command>```. [See git documentation for more information on how to use git.](https://git-scm.com/doc)
+Additional commands have been created to parse and reconstruct the input files containing genomic data.
 To get the list of the most common commands you can type ```genomegit help```.
 
 ## Typical usage
 
-### Initializing the repository
-The repository can be initialized by typing ```genomegit init```. In your current directory a *.gnmgit* folder should be created. All of the repository files will be placed in that folder, including the git repository folder *.git* . You can clone into an existing repository: ```genomegit clone <url>```. A *.gnmgit* folder will be created, and the contents of the repository will be put inside it.
+### 1. Initializing the repository
+The repository can be initialized by typing ```genomegit init```, which will create a *.gnmgit* directory. This directory will contain all the genomic data stored in the repository, including the *.git* repository itself. Additionally, is possible to clone an existing repository using ```genomegit clone <url>```, which will create a *.gnmgit* with the cloned contents inside.
 
-### Parsing the files
-You should place the file that you wish to parse into the folder with GenomeGit repository . Then, type ```genomegit parse <filename>```. A *Genome* folder will be created in the repository (*.gnmgit* folder) with the processed file. 
+### 2. Parsing genome assembly files
+The genome assembly of interest needs to be provided in form of a FASTA file, located in the same directory where the *.gnmgit* repository has been initialized. This file can then be processed by typing `genomegit parse <filename>```, which will result in the creation of a *Genome* folder storing all the assembly information in form of git-compatible objects.
 
-Note: Currently only 1 genome can be stored per branch. Existing *Genome* folder will be removed.
+Note: Currently only 1 genome can be stored per branch. Any already existing *Genome* folder will be removed when parsing a new genome assembly file.
 
-### Recording changes made to the repository
-After uploading the genome you should add it to the repository: ```genomegit add <itemname>```. If you wish to add everything, you can type ```genomegit add .```.
-Then, you can commit the changes: ```genomegit commit -m "commit_message"```.
+### 3. Recording changes made in the repository
+After parsing the genome assembly file, user may add it to the repository: ```genomegit add <item_name>```, where ```item_name``` stands for the dataset to be added (e.g. Genome, Variants, Annotation...) (Note: Currently only ```Genome``` is supported). To add all datasets, user can type ```genomegit add .```
+Then, these changes can be commited: ```genomegit commit -m "commit_message"```.
 
-### Remote repository access
-In order to acces a remote repository, you first need to add a remote repository address. You can do that by typing ```genomegit remote add <remote_name> <url>```. To be up to date with the repository, you need to fetch the data from it and integrate: ```genomegit pull <remote_name> <branch_name>```. Then, after making changes to the repository, you can push the changes: ```genomegit push <remote_name>```.
+### 4. Remote repository access
+In order to acces a remote repository, it is first needed to add a remote repository address. This can be done by typing ```genomegit remote add <remote_name> <url>```. To be up to date with the remote repository, the user needs to fetch the remote's data and integrate it to the local repository: ```genomegit pull <remote_name> <branch_name>```. Afterwards, user can introduce changes in the local repository and push them into the remote: ```genomegit push <remote_name>```.
 
-### Version log, checking out the desired version and recreating the FASTA file
-In order to switch to a chosen version of genome, you will need to find out the hash of the commit corresponding to the version of your choice. To review the list of versions of the genome you can type ```genomegit log```. Then you can switch by typing ```genomegit checkout <commit_hash>```. Finally, to recreate the file from the repository, type ```genomegit reconstruct <line_length>```. ```<line_length>``` specifies the number of nucleotides per line in the output file. The default value is 60. Make sure to check out to your main branch if you wish to upload the files further ```genomegit checkout <branch_name>```.
+### 5. Version log, checking out the desired version and recreating the FASTA file
+User can switch to any of the stored assembly versions at any moment by typing ```genomegit checkout <commit_hash>```, where ```<commit_hash>``` stands for the SHA-1 commit hash of the version of interest. To obtain this hash, a review of versions can be viewed by typing ```genomegit log```. Finally, to recreate the original FASTA input file containing the genome assembly type ```genomegit reconstruct <line_length>```, where ```<line_length>``` specifies the number of nucleotides per line in the reconstructed FASTA file (default value is 60, all nucleotides of each sequence can be placed in one line by placing "." instead of an integer). If the user wants to upload the further files, main branch can be checked out: ```genomegit checkout <branch_name>```.
 
 ## Sample data and testing
 
-### Data
-Test files called *fruit_fly_v1.fa* and *fruit_fly_v2.fa* containing the assembly data of the fruit fly are provided and can be used in testing. An empty repository on the 'Scarface' server can be used as a remote repository.
+### Sample data
+Two sample assembly files containing *Drosophila Melanogaster* genome have been supplied in form of files *fruit_fly_v1.fa* and *fruit_fly_v2.fa*. These assemblies are publically available in the [NCBI database](https://www.ncbi.nlm.nih.gov/genome?term=vih&cmd=DetailsSearch), and correspond with versions *PUT HERE THE REAL VERSION NUMBERS.
 
 ### Sample testing protocol
 
@@ -82,13 +84,13 @@ Note: In older versions of git, you may need to check out the genome folder afte
 14. Make sure to check out to your main branch if you wish to upload the files further ```genomegit checkout <branch_name>```. The default branch should be called 'master'.
 
 ## Future plans
-In the future, we plan to include a possibility to parse and store dependant files such as annotation, variant calling etc.
+Future versions will be able to parse and store additional files containing gene annotations, SNPs variant calling... etc. This files will be auto-updated whenever the user uploads new genome assemblies.
 
 ## Authors
 
 * **Patel Vineet**
 * **Kourani Mariam**
-* **Sanches Rodriguez Filomeno**
+* **Sanchez Rodriguez Filomeno**
 * **Marek Ewa**
 * **Bailey Emma**
 * **Porc Jakub**
