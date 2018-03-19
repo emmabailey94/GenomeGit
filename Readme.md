@@ -43,7 +43,7 @@ User can switch to any of the stored assembly versions at any moment by typing `
 ## Sample data and testing
 
 ### Sample data
-Two sample assembly files containing *Drosophila Melanogaster* genome have been supplied in form of files *fruit_fly_v1.fa* and *fruit_fly_v2.fa*. These assemblies are publically available in the [NCBI database](https://www.ncbi.nlm.nih.gov/genome?term=vih&cmd=DetailsSearch), and correspond with versions ASM231075v1 (v1) and ASM231077v1 (v2).genomegit@138.250.31.4:GenomeGit
+Two sample assembly files containing *Drosophila Melanogaster* genome have been supplied in form of files *fruit_fly_v1.fa* and *fruit_fly_v2.fa*. These assemblies are publically available in the [NCBI database](https://www.ncbi.nlm.nih.gov/genome?term=vih&cmd=DetailsSearch), and correspond with versions ASM231075v1 (v1) and ASM231077v1 (v2). A repository on Scarface server can be used as a remote: genomegit@138.250.31.4:GenomeGit.
 
 ### Sample testing protocol
 
