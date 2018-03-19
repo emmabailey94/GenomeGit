@@ -43,25 +43,25 @@ User can switch to any of the stored assembly versions at any moment by typing `
 ## Sample data and testing
 
 ### Sample data
-Two sample assembly files containing *Drosophila Melanogaster* genome have been supplied in form of files *fruit_fly_v1.fa* and *fruit_fly_v2.fa*. These assemblies are publically available in the [NCBI database](https://www.ncbi.nlm.nih.gov/genome?term=vih&cmd=DetailsSearch), and correspond with versions ASM231075v1 (v1) and ASM231077v1 (v2).
+Two sample assembly files containing *Drosophila Melanogaster* genome have been supplied in form of files *fruit_fly_v1.fa* and *fruit_fly_v2.fa*. These assemblies are publically available in the [NCBI database](https://www.ncbi.nlm.nih.gov/genome?term=vih&cmd=DetailsSearch), and correspond with versions ASM231075v1 (v1) and ASM231077v1 (v2).genomegit@138.250.31.4:GenomeGit
 
 ### Sample testing protocol
 
 #### Primary upload
 1. Initialize the repository ```genomegit init``` in the chosen directory.
 
-Note: You can clone into an existing repository instead ```genomegit clone genomegit@138.250.31.4:GenomeGit```.
+Note: You can clone into an existing repository instead ```genomegit clone <remote_url>```.
 
 2. Move the FASTA files into the directory with GenomeGit repository and parse *fruit_fly_v1.fa* ```genomegit parse fruit_fly_v1.fa```.
 
 3. Record the changes by executing ```genomegit add .``` and ```genomegit commit -m "Version_1"```.
 
 #### Remote access
-4. Add the remote repository address ```genomegit remote add scarface genomegit@138.250.31.4:GenomeGit```.
+4. Add the remote repository address ```genomegit remote add origin <remote_url>```.
 
-Note: If the repository is not empty, you should pull the data ```genomegit pull scarface <branch>```. ```<branch>``` will usualy be called master.
+Note: If the repository is not empty, you should pull the data ```genomegit pull origin <branch>```. ```<branch>``` will usualy be called master.
 
-5. Push your current data ```genomegit push scarface master```.
+5. Push your current data ```genomegit push origin master```.
 
 #### New version upload
 7. Parse *fruit_fly_v2.fa* ```genomegit parse fruit_fly_v2.fa```.
@@ -70,7 +70,7 @@ Note: If the repository is not empty, you should pull the data ```genomegit pull
 
 Note:	In older verions of git you may need to include ```-A``` parameter during adding to include the removal of certain file parts. A proprer message will appear if that is the case.
 
-9. Push your current data ```genomegit push scarface master```.
+9. Push your current data ```genomegit push origin master```.
 
 #### Recoverig version 1
 10. See the version log ```genomegit log```.
