@@ -28,7 +28,7 @@ The repository can be initialized by typing ```genomegit init```, which will cre
 ### 2. Parsing genome assembly files
 The genome assembly of interest needs to be provided in form of a FASTA file, located in the same directory where the *.gnmgit* repository has been initialized. This file can then be processed by typing ```genomegit parse <filename>```, which will result in the creation of a *Genome* folder storing all the assembly information in form of git-compatible objects.
 
-Note: Currently only 1 genome can be stored per branch. Any already existing *Genome* folder will be removed when parsing a new genome assembly file.
+Note: Currently only 1 genome can be stored in the repository. Any already existing *Genome* folder will be removed when parsing a new genome assembly file.
 
 ### 3. Recording changes made in the repository
 After parsing the genome assembly file, user may add it to the repository: ```genomegit add <item_name>```, where ```item_name``` stands for the dataset to be added (e.g. Genome, Variants, Annotation...) (Note: Currently only ```Genome``` is supported). To add all datasets, user can type ```genomegit add .```
