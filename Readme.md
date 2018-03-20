@@ -54,7 +54,7 @@ Note: You can clone into an existing repository instead ```genomegit clone <remo
 
 2. Move the FASTA files into the directory with GenomeGit repository and parse *fruit_fly_v1.fa* ```genomegit parse fruit_fly_v1.fa```.
 
-3. Record the changes by executing ```genomegit add .``` and ```genomegit commit -m "Version_1"```.
+3. Record the changes by executing ```genomegit add Genome``` and ```genomegit commit -m "Version_1"```.
 
 #### Remote access
 4. Add the remote repository address ```genomegit remote add origin <remote_url>```.
@@ -66,7 +66,7 @@ Note: If the repository is not empty, you should pull the data ```genomegit pull
 #### New version upload
 7. Parse *fruit_fly_v2.fa* ```genomegit parse fruit_fly_v2.fa```.
 
-8. Record the changes by executing ```genomegit add .``` and ```genomegit commit -m "Version_2"```.
+8. Record the changes by executing ```genomegit add Genome``` and ```genomegit commit -m "Version_2"```.
 
 Note:	In older verions of git you may need to include ```-A``` parameter during adding to include the removal of certain file parts. A proprer message will appear if that is the case.
 
