@@ -31,7 +31,7 @@ The genome assembly of interest needs to be provided in form of a FASTA file, lo
 Note: Currently only 1 genome can be stored in the repository. Any already existing *Genome* folder will be removed when parsing a new genome assembly file.
 
 ### 3. Recording changes made in the repository
-After parsing the genome assembly file, user may add it to the repository: ```genomegit add <item_name>```, where ```item_name``` stands for the dataset to be added (e.g. Genome, Variants, Annotation...) (Note: Currently only ```Genome``` is supported). To add all datasets, user can type ```genomegit add .```
+After parsing the genome assembly file, user may add it to the repository: ```genomegit add <item_name>```, where ```item_name``` stands for the dataset to be added (e.g. Genome, Variants, Annotation...) (Note: Currently only ```Genome``` is supported).
 Then, these changes can be commited: ```genomegit commit -m "commit_message"```.
 
 ### 4. Remote repository access
