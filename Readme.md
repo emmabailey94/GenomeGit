@@ -59,7 +59,7 @@ Note: You can clone into an existing repository instead ```genomegit clone <remo
 #### Remote access
 4. Add the remote repository address ```genomegit remote add origin <remote_url>```.
 
-Note: If the repository is not empty, you should pull the data ```genomegit pull origin <branch>```. ```<branch>``` will usualy be called master.
+Note: If the repository is not empty, you should pull the data ```genomegit pull origin <branch>```. ```<branch>``` will usually be called master.
 
 5. Push your current data ```genomegit push origin master```.
 
@@ -72,7 +72,7 @@ Note:	In older verions of git you may need to include ```-A``` parameter during 
 
 9. Push your current data ```genomegit push origin master```.
 
-#### Recoverig version 1
+#### Recovering version 1
 10. See the version log ```genomegit log```.
 
 11. Check out version one ```genomegit checkout <V1_commit_hash>```.
